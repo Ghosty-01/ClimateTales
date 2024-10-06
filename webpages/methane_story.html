@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="logo.png">
+    <title>Document</title>
+    <style>
+        :root {
+            --card-height: 40vw;
+            --card-margin: 4vw;
+            --card-top-offset: 1em;
+            --numcards: 4;
+            --outline-width: 0px;
+        }
+
+        #cards {
+            padding-bottom: calc(var(--numcards) * var(--card-top-offset));
+            /* Make place at bottom, as items will slide to that position*/
+            margin-bottom: var(--card-margin);
+            /* Don't include the --card-margin in padding, as that will affect the scroll-timeline*/
+        }
+
+        #card_1 {
+            --index: 1;
+        }
+
+        #card_2 {
+            --index: 2;
+        }
+
+        #card_3 {
+            --index: 3;
+        }
+
+        #card_4 {
+            --index: 4;
+        }
+
+        #card_5 {
+            --index: 5;
+        }
+
+        .card {
+            position: sticky;
+            top: 0;
+            padding-top: calc(var(--index) * var(--card-top-offset));
+        }
+
+        @supports (animation-timeline: works) {
+
+            @scroll-timeline cards-element-scrolls-in-body {
+                source: selector(body);
+                scroll-offsets:
+                    /* Start when the start edge touches the top of the scrollport */
+                    selector(#cards) start 1,
+                    /* End when the start edge touches the start of the scrollport */
+                    selector(#cards) start 0;
+                start: selector(#cards) start 1;
+                /* Start when the start edge touches the top of the scrollport */
+                end: selector(#cards) start 0;
+                /* End when the start edge touches the start of the scrollport */
+                time-range: 4s;
+            }
+
+            .card {
+                --index0: calc(var(--index) - 1);
+                /* 0-based index */
+                --reverse-index: calc(var(--numcards) - var(--index0));
+                /* reverse index */
+                --reverse-index0: calc(var(--reverse-index) - 1);
+                /* 0-based reverse index */
+            }
+
+            .card__content {
+                transform-origin: 50% 0%;
+                will-change: transform;
+
+                --duration: calc(var(--reverse-index0) * 1s);
+                --delay: calc(var(--index0) * 1s);
+
+                animation: var(--duration) linear scale var(--delay) forwards;
+                animation-timeline: cards-element-scrolls-in-body;
+            }
+
+            @keyframes scale {
+                to {
+                    transform:
+                        scale(calc(1.1 - calc(0.1 * var(--reverse-index))));
+                }
+            }
+        }
+
+        * {
+            /* Poor Man's Reset */
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: linear-gradient(to bottom, #2d3637 23%, #0e0e0e 77%);
+            color: rgb(255, 255, 255);
+            text-align: center;
+
+            font-size: calc(1em + 0.5vw);
+        }
+
+        header,
+        main {
+            width: 80vw;
+            margin: 0 auto;
+        }
+
+        header {
+            height: 100vh;
+            display: grid;
+            place-items: center;
+        }
+
+        #cards {
+            list-style: none;
+            outline: calc(var(--outline-width) * 10) solid blue;
+
+            display: grid;
+            grid-template-columns: 1fr;
+            grid-template-rows: repeat(var(--numcards), var(--card-height));
+            gap: var(--card-margin);
+        }
+
+        .card {
+            outline: var(--outline-width) solid hotpink;
+        }
+
+        .card__content {
+            box-shadow: 0 0.2em 1em rgba(0, 0, 0, 0.1), 0 1em 2em rgba(0, 0, 0, 0.1);
+            background: rgb(255, 255, 255);
+            color: rgb(10, 5, 7);
+            border-radius: 1em;
+            overflow: hidden;
+
+            display: grid;
+            grid-template-areas: "text img";
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: auto;
+
+            align-items: stretch;
+            outline: var(--outline-width) solid lime;
+        }
+
+        .card__content>div {
+            grid-area: text;
+            width: 80%;
+            place-self: center;
+            text-align: left;
+
+            display: grid;
+            gap: 1em;
+            place-items: start;
+        }
+
+        .card__content>figure {
+            grid-area: img;
+            overflow: hidden;
+        }
+
+        .card__content>figure>img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        h1 {
+            font-weight: 300;
+            font-size: 3.5em;
+        }
+
+        h2 {
+            font-weight: 300;
+            font-size: 2.5em;
+        }
+
+        p {
+            font-family: sans-serif;
+            font-weight: 300;
+            line-height: 1.42;
+        }
+
+        aside {
+            width: 50vw;
+            margin: 0 auto;
+            text-align: left;
+        }
+
+        aside p {
+            margin-bottom: 1em;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div>
+            <h1>The Hidden Impact of Methane on Our Environment and Health</h1>
+            <p> Scroll down to see the story.</p>
+        </div>
+    </header>
+    <main>
+        <ul id="cards">
+            <li class="card" id="card_1">
+                <div class="card__content">
+                    <div>
+                        <h2>Introduction:</h2>
+                        <p>
+
+                            Methane, a colorless and odorless gas, is often overshadowed by carbon dioxide in
+                            discussions about climate change. However, it is a potent greenhouse gas with a global
+                            warming potential significantly greater than that of carbon dioxide over a shorter timeframe. 
+                            Understanding methane's sources and its effects on the environment and human health
+                            is crucial for developing effective strategies to mitigate its impact.
+
+                        </p>
+                    </div>
+                    <figure>
+                        <img src="images2.png" alt="Image description">
+                    </figure>
+                </div>
+            </li>
+            <li class="card" id="card_2">
+                <div class="card__content">
+                    <div>
+                        <h2> Rising Action:</h2>
+                        <p>
+
+
+                            Methane emissions originate from various sources, with agriculture being the largest
+                            contributor. Livestock digestion, particularly through enteric fermentation in ruminants
+                            like cows and sheep, releases significant amounts of methane into the atmosphere.
+                            Additionally, manure management practices contribute to methane production as organic matter
+                            decomposes anaerobically.<br>
+
+                            Beyond agriculture, methane is also emitted from landfills, natural gas extraction and
+                            distribution, wetlands, and certain industrial processes. As these emissions accumulate in
+                            the atmosphere, they contribute to air pollution and climate change.<br>
+
+                            The environmental consequences of increased methane levels are alarming. Methane traps heat
+                            in the atmosphere much more effectively than carbon dioxide—over 25 times more effective
+                            over a century—leading to accelerated global warming. This rise in temperature can disrupt
+                            weather patterns, increase the frequency of extreme weather events, and threaten
+                            biodiversity.
+
+                        </p>
+                    </div>
+                    <figure>
+                        <img src="images3.png" alt="Image description">
+                    </figure>
+                </div>
+            </li>
+            <li class="card" id="card_3">
+                <div class="card__content">
+                    <div>
+                        <h2>Climax:</h2>
+                        <p>
+
+                            The health implications of methane emissions are equally concerning. As a precursor to
+                            ground -level ozone formation—a harmful air pollutant—methane contributes to respiratory
+                            problems such as asthma and other chronic lung diseases. Communities located near
+                            high -emission areas—such as farms or landfills—face heightened health risks due to poor air
+                            quality.<br>
+
+                            Moreover, as climate change progresses due to rising methane levels, public health risks
+                            will likely expand further. Increased temperatures may lead to more heat -related illnesses
+                            while also exacerbating vector -borne diseases like malaria or dengue fever due to shifting
+                            habitats for disease -carrying organisms.
+
+                        </p>
+                    </div>
+                    <figure>
+                        <img src="images4.png" alt="Image description">
+                    </figure>
+                </div>
+            </li>
+            <li class="card" id="card_4">
+                <div class="card__content">
+                    <div>
+                        <h2>Falling Action:</h2>
+                        <p>
+
+                            Recognizing these threats has led scientists and policymakers to advocate for strategies
+                            aimed at reducing methane emissions. Innovations in agricultural practices such as improved
+                            feed efficiency for livestock can lower enteric fermentation rates. Additionally, better
+                            manure management techniques can minimize methane production from waste.<br>
+
+                            On a broader scale, transitioning from fossil fuels towards renewable energy sources can
+                            significantly cut down on methane emitted during natural gas extraction processes. Public
+                            awareness campaigns are essential for educating communities about reducing food
+                            waste—another critical source of methane when organic materials decompose in landfills.
+
+
+                        </p>
+                    </div>
+                    <figure>
+                        <img src="images8.png" alt="Image description">
+                    </figure>
+                </div>
+            </li>
+            <li class="card" id="card_5">
+                <div class="card__content">
+                    <div>
+                        <h2>Resolution:</h2>
+                        <p>
+
+                            Addressing the challenges posed by methane requires a multi -faceted approach involving
+                            cooperation between governments, industries, farmers, and consumers alike. By understanding
+                            the profound effects that this potent greenhouse gas has on our environment and health—and
+                            taking action accordingly—we can work towards a healthier planet for future generations.<br>
+
+                            As we continue our journey toward sustainability and climate resilience, recognizing the
+                            role of methane is not just an environmental issue; it’s also an urgent public health
+                            concern that warrants immediate attention.
+                            <br>
+                            <h1>Thank you</h1>
+                            </p>
+                    </div>
+                    <figure>
+                        <img src="images10.png" alt="Image description">
+                    </figure>
+                </div>
+            </li>
+        </ul>
+    </main>
+    <script>
+        import { showDialog } from 'https://codepen.io/bramus/pen/ZEqMOLz/cccfe67c2b9cdfbeb5fb59083dbd0a64.js';
+        showDialog('https://scroll-driven-animations.style/demos/stacking-cards/css/');</script>
+</body>
+
+</html>

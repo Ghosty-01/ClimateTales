@@ -1,0 +1,183 @@
+/* General Styles */
+body {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    background: linear-gradient(to bottom, #2d3637 23%, #0e0e0e 77%);
+    color: #E0E0E0;
+}
+
+/* Navbar Styles */
+/* header {
+    background-color: #1E1E1E;
+    padding: 20px;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+} */
+
+.logo {
+    font-size: 24px;
+    font-weight: 700;
+}
+
+/* .nav-links {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+.nav-links li a {
+    text-decoration: none;
+    color: #E0E0E0;
+    font-weight: 500;
+} */
+
+.theme-toggle button {
+    background-color: #BB86FC;
+    border: none;
+    color: #121212;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+/* Hero Section Styles */
+.hero1 {
+    background-image: url(bg.avif);
+    background-size: cover;
+    height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+}
+
+.hero1-content {
+    background: linear-gradient(to bottom, #2d3637 23%, #0e0e0e 77%);
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.hero1 h1 {
+    font-size: 42px;
+}
+
+.hero1 p {
+    font-size: 18px;
+}
+
+.cta-button {
+    margin-top: 20px;
+    background-color: #03DAC6;
+    color: #121212;
+    padding: 10px 20px;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 4px;
+}
+
+.cta-button:hover {
+    background-color: #018786;
+}
+
+/* Blog Post Section Styles */
+.blog-posts {
+    padding: 40px;
+    text-align: center;
+}
+
+.blog-posts h2 {
+    margin-bottom: 40px;
+}
+
+.posts-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* This makes the layout 3x3 */
+    gap: 20px;
+}
+
+.post {
+    background-color: #1E1E1E;
+    padding: 20px;
+    border-radius: 8px;
+    transition: transform 0.3s;
+}
+
+.post:hover {
+    transform: scale(1.05);
+}
+
+.post img {
+    width: 100%;
+    border-radius: 8px;
+}
+
+.post h3 {
+    margin: 20px 0 10px;
+    font-size: 20px;
+}
+
+.post p {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.read-more {
+    text-decoration: none;
+    color: #BB86FC;
+    font-weight: bold;
+}
+
+.read-more:hover {
+    color: #3700B3;
+}
+
+/* Footer Styles */
+footer {
+    background-color: #1E1E1E;
+    padding: 20px;
+    text-align: center;
+    color: #E0E0E0;
+}
+
+/* Light Theme Toggle */
+body.light-theme {
+    background-color: #FFFFFF;
+    color: #121212;
+}
+
+body.light-theme header {
+    background-color: #F5F5F5;
+}
+
+body.light-theme footer {
+    background-color: #F5F5F5;
+    color: #121212;
+}
+
+body.light-theme .post {
+    background-color: #F0F0F0;
+    color: #121212;
+}
+
+body.light-theme .cta-button {
+    background-color: #BB86FC;
+    color: #121212;
+}
+
+/* Responsive Layout for Smaller Screens */
+@media (max-width: 1024px) {
+    .posts-container {
+        grid-template-columns: repeat(2, 1fr); /* 2 cards per row for tablets */
+    }
+}
+
+@media (max-width: 768px) {
+    .posts-container {
+        grid-template-columns: 1fr; /* 1 card per row for mobile */
+    }
+}
